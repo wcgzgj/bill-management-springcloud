@@ -2,6 +2,8 @@ server:
   port: 8880
 
 spring:
+  application:
+    name: user-service
   datasource:
     url: jdbc:mysql://localhost:3306/bill-management?useUnicode=true&characterEncoding=utf-8
     username: root
@@ -20,3 +22,9 @@ mybatis:
   #  打印sql相关的日志信息
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+eureka:
+  client:
+    service-url:
+      # 要写上 eureka 的访问地址
+      defaultZone: HTTP://127.0.0.1:10086/eureka
