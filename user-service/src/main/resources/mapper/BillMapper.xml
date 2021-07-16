@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.faroz.mapper.BillMapper">
+  <resultMap id="BaseResultMap" type="top.faroz.pojo.Bill">
+    <id column="id_" jdbcType="BIGINT" property="id" />
+    <result column="title_" jdbcType="VARCHAR" property="title" />
+    <result column="bill_time_" jdbcType="DATE" property="billTime" />
+    <result column="type_id_" jdbcType="BIGINT" property="typeId" />
+    <result column="price_" jdbcType="DOUBLE" property="price" />
+    <result column="explain_" jdbcType="VARCHAR" property="explain" />
+    <result column="file_path_" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_name_" jdbcType="VARCHAR" property="fileName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id_, title_, bill_time_, type_id_, price_, explain_, file_path_, file_name_
+  </sql>
+  <select id="selectByExample" parameterType="top.faroz.pojo.BillExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bill_
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bill_
+    where id_ = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bill_
+    where id_ = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.faroz.pojo.BillExample">
+    delete from bill_
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.faroz.pojo.Bill">
+    insert into bill_ (id_, title_, bill_time_, 
+      type_id_, price_, explain_, 
+      file_path_, file_name_)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{billTime,jdbcType=DATE}, 
+      #{typeId,jdbcType=BIGINT}, #{price,jdbcType=DOUBLE}, #{explain,jdbcType=VARCHAR}, 
+      #{filePath,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="top.faroz.pojo.Bill">
+    insert into bill_
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id_,
+      </if>
+      <if test="title != null">
+        title_,
+      </if>
+      <if test="billTime != null">
+        bill_time_,
+      </if>
+      <if test="typeId != null">
+        type_id_,
+      </if>
+      <if test="price != null">
+        price_,
+      </if>
+      <if test="explain != null">
+        explain_,
+      </if>
+      <if test="filePath != null">
+        file_path_,
+      </if>
+      <if test="fileName != null">
+        file_name_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null">
+        #{billTime,jdbcType=DATE},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="explain != null">
+        #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.faroz.pojo.BillExample" resultType="java.lang.Long">
+    select count(*) from bill_
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bill_
+    <set>
+      <if test="record.id != null">
+        id_ = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title_ = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billTime != null">
+        bill_time_ = #{record.billTime,jdbcType=DATE},
+      </if>
+      <if test="record.typeId != null">
+        type_id_ = #{record.typeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.price != null">
+        price_ = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.explain != null">
+        explain_ = #{record.explain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null">
+        file_path_ = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name_ = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bill_
+    set id_ = #{record.id,jdbcType=BIGINT},
+      title_ = #{record.title,jdbcType=VARCHAR},
+      bill_time_ = #{record.billTime,jdbcType=DATE},
+      type_id_ = #{record.typeId,jdbcType=BIGINT},
+      price_ = #{record.price,jdbcType=DOUBLE},
+      explain_ = #{record.explain,jdbcType=VARCHAR},
+      file_path_ = #{record.filePath,jdbcType=VARCHAR},
+      file_name_ = #{record.fileName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.faroz.pojo.Bill">
+    update bill_
+    <set>
+      <if test="title != null">
+        title_ = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="billTime != null">
+        bill_time_ = #{billTime,jdbcType=DATE},
+      </if>
+      <if test="typeId != null">
+        type_id_ = #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price_ = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="explain != null">
+        explain_ = #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        file_path_ = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name_ = #{fileName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.faroz.pojo.Bill">
+    update bill_
+    set title_ = #{title,jdbcType=VARCHAR},
+      bill_time_ = #{billTime,jdbcType=DATE},
+      type_id_ = #{typeId,jdbcType=BIGINT},
+      price_ = #{price,jdbcType=DOUBLE},
+      explain_ = #{explain,jdbcType=VARCHAR},
+      file_path_ = #{filePath,jdbcType=VARCHAR},
+      file_name_ = #{fileName,jdbcType=VARCHAR}
+    where id_ = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

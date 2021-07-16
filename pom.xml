@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--这里一定要指定 package 为 pom，表示是一个聚合项目-->
+    <packaging>pom</packaging>
+
     <groupId>top.faroz</groupId>
     <artifactId>bill-management-springcloud</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>user-service</module>
+    </modules>
 
     <parent>
         <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -14,8 +20,6 @@
         <version>2.1.5.RELEASE</version>
     </parent>
 
-    <!--这里一定要指定 package 为 pom，表示是一个聚合项目-->
-    <packaging>pom</packaging>
 
     <properties>
 <!--        <maven.compiler.source>8</maven.compiler.source>-->
@@ -24,6 +28,7 @@
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <mapper.starter.version>3.4.3.1</mapper.starter.version>
         <mysql.version>8.0.20</mysql.version>
+        <mybatis.start.version>2.2.0</mybatis.start.version>
     </properties>
 
     <!--dependencyManagement 只是用来管理所有包的版本-->
@@ -40,12 +45,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--mp 启动器-->
+            <!-- mybatis-->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mapper.starter.version}</version>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.start.version}</version>
             </dependency>
+<!--            &lt;!&ndash;mp 启动器&ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>com.baomidou</groupId>-->
+<!--                <artifactId>mybatis-plus-boot-starter</artifactId>-->
+<!--                <version>${mapper.starter.version}</version>-->
+<!--            </dependency>-->
             <!-- mysql驱动 -->
             <dependency>
                 <groupId>mysql</groupId>
