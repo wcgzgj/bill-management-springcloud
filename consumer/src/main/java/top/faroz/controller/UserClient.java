@@ -10,18 +10,13 @@ import top.faroz.resp.CommonResp;
 @FeignClient("user-service") // 添加 feign 注解
 public interface UserClient {
 
-    //http://user-service/Bill/123
-    @GetMapping("/bill/{id}")
-    Bill queryById(@PathVariable("id") Long id);
-
-
     /**
      * 列表查询
      * 包括分页和模糊查询
      * @param req
      * @return
      */
-    @GetMapping("/bill//list")
+    @GetMapping("/bill/list")
     CommonResp list(BillQueryReq req);
 
 
