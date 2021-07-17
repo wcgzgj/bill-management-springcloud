@@ -32,6 +32,6 @@ public class ConsumerFeignController {
         return userClient.list(req);
     }
 
-    
+
 
 }
