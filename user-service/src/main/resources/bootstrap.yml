@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    config:
+      # 仓库中的文件是 bill-dev.yml
+      name: bill
+      profile: dev
+      label: master
+      discovery:
+        # 使用配置中心
+        enabled: true
+        # 配置中心服务名
+        service-id: config-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
