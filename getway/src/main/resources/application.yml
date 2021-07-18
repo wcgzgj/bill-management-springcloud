@@ -1,0 +1,35 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # 路由 id 们可以随意写
+        - id: user-service-route
+          # 代理的服务地址  注意，路径最后，一定要加上  /    ！！！！
+          # uri: http://127.0.0.1:8880/ # 这边我们把 uri 写死了，后面要优化的（在 Eureka 注册中心拉取）
+          uri: lb://user-service
+          # 路由断言，可以配置映射路径
+          predicates:
+            - Path=/api/bill/**
+          # 上面的配置结束后，其实达到这样的效果： http://localhost:10010/bill/7 -> http://localhost:8880/bill/7
+          filters:
+            - StripPrefix=1
+            - MyParam=name
+      # 配置默认过滤器
+      default-filters:
+        - AddResponseHeader=abc-author,FARO_Z
+        - AddResponseHeader=X-Resopnse-Foo,faroz
+
+eureka:
+  client:
+    service-url:
+      #指定 eureka 注册中心
+      defaultZone: HTTP://127.0.0.1:10086/eureka
+  instance:
+    # 注册的时候，优先使用 ip 地址
+    prefer-ip-address: true
+    ip-address: 127.0.0.1 # ip地址
